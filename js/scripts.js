@@ -68,6 +68,21 @@ Board.prototype.mark = function(num) {
 }
 
 Board.prototype.threeInRow = function() {
+  // game.currentPlayer.squares
+  // winningSquareCombos
+  var win = true;
+
+  winningSquareCombos.forEach(function(winningArray) {
+    winningArray.forEach(function(square) {
+      if (game.currentPlayer.squares.indexOf(square) === -1) {
+        win = false;
+      }
+    });
+  });
+
+  if (win === true) {
+    console.log("win");
+  }
 
 }
 
@@ -110,6 +125,6 @@ $(function() {
     } else {
       $("#message").html(game.currentPlayer.name + ", that square is already taken! Pick again!");
     }
-
+    board.threeInRow();
   });
 });
