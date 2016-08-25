@@ -1,3 +1,7 @@
+body {
+  text-align: center;
+}
+
 .square {
   height: 150px;
   border: 1px solid black;
@@ -11,4 +15,9 @@
 .dog {
   background: url("../img/dog.svg") center center no-repeat;
   background-size: 60%;
+}
+
+#message {
+  margin-top: 20px;
+  font-size: 20px;
 }

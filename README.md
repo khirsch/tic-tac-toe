@@ -8,9 +8,7 @@ Tic Tac Toe is a game in which players alternate marking squares on a board. The
 
 ## Specifications ##
 
-* Display the current player's turn.
-
-* A marker will appear on the board when the current player clicks a square.
+* A marker will appear on the board when the current player clicks on a square.
 
 * When a player clicks a square, switch to opposite player's turn.
 

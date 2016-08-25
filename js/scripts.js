@@ -1,11 +1,9 @@
 // Business Logic
 
-function Player(marker) {
+function Player(marker, name, squares) {
   this.marker = marker;
-}
-
-Player.prototype.mark = function() {
-  return this.marker;
+  this.name = name;
+  this.squares = squares;
 }
 
 function Square(x, y, player) {
@@ -14,25 +12,9 @@ function Square(x, y, player) {
   this.player = player;
 }
 
-Square.prototype.markedBy = function() {
-  return this.player.marker;
-}
-
-Square.prototype.coords = function() {
-  return this.x + ", " + this.y;
-}
-
 function Board(squares, series) {
   this.squares = squares;
   this.series = series;
-}
-
-Board.prototype.threeInRow = function() {
-
-}
-
-Board.prototype.findSquare = function() {
-
 }
 
 function Game(players, currentPlayer, board, gameOver) {
@@ -42,8 +24,8 @@ function Game(players, currentPlayer, board, gameOver) {
   this.gameOver = gameOver;
 }
 
-var player1 = new Player("cat");
-var player2 = new Player("dog");
+var player1 = new Player("cat", "Player 1", []);
+var player2 = new Player("dog", "Player 2", []);
 
 var allPlayers = [player1, player2];
 
@@ -63,8 +45,56 @@ var board = new Board(allSquares, false);
 
 var game = new Game(allPlayers, player1, board, false);
 
+Player.prototype.mark = function() {
+  return this.marker;
+}
 
+Square.prototype.markedBy = function() {
+  return this.player.marker;
+}
 
+Square.prototype.coords = function() {
+  return this.x + this.y;
+}
+
+Board.prototype.mark = function(num) {
+  this.squares[num].player = game.currentPlayer;
+  if (game.currentPlayer === player1) {
+    game.currentPlayer = player2;
+  } else {
+    game.currentPlayer = player1;
+  }
+}
+
+Board.prototype.threeInRow = function() {
+  var p = game.currentPlayer;
+  if ((p === square1.player && p === square2.player && p=== square3.player) || (game.currentPlayer === square4.player && game.currentPlayer === square5.player && game.currentPlayer === square6.player) || (game.currentPlayer === square7.player && game.currentPlayer === square8.player && game.currentPlayer === square9.player)) {
+    board.series = true;
+  }
+}
+
+Board.prototype.findSquare = function() {
+
+}
+
+Game.prototype.playAgain = function() {
+  player1 = new Player("cat", "Player 1", []);
+  player2 = new Player("dog", "Player 2", []);
+  allPlayers = [player1, player2];
+  square1 = new Square(1, 1, '');
+  square2 = new Square(2, 1, '');
+  square3 = new Square(3, 1, '');
+  square4 = new Square(1, 2, '');
+  square5 = new Square(2, 2, '');
+  square6 = new Square(3, 2, '');
+  square7 = new Square(1, 3, '');
+  square8 = new Square(2, 3, '');
+  square9 = new Square(3, 3, '');
+  allSquares = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
+  board = new Board(allSquares, false);
+  game = new Game(allPlayers, player1, board, false);
+  // front end logic with reset button to clear dog/cat classes from all .square
+}
 
 
 
@@ -72,11 +102,11 @@ var game = new Game(allPlayers, player1, board, false);
 
 $(function() {
   $(".square").click(function() {
+    var current = $(this).attr('id');
     $(this).addClass(game.currentPlayer.marker);
-    if (game.currentPlayer === player1) {
-      game.currentPlayer = player2;
-    } else {
-      game.currentPlayer = player1;
+    board.mark(current);
+    if (board.series === true) {
+      $("#message").html(game.currentPlayer.name + " wins!");
     }
   });
 });
