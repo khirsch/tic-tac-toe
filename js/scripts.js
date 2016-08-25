@@ -6,9 +6,8 @@ function Player(marker, name, squares) {
   this.squares = squares;
 }
 
-function Square(x, y, player) {
-  this.x = x;
-  this.y = y;
+function Square(id, player) {
+  this.id = id;
   this.player = player;
 }
 
@@ -29,15 +28,15 @@ var player2 = new Player("dog", "Player 2", []);
 
 var allPlayers = [player1, player2];
 
-var square1 = new Square(1, 1, '');
-var square2 = new Square(2, 1, '');
-var square3 = new Square(3, 1, '');
-var square4 = new Square(1, 2, '');
-var square5 = new Square(2, 2, '');
-var square6 = new Square(3, 2, '');
-var square7 = new Square(1, 3, '');
-var square8 = new Square(2, 3, '');
-var square9 = new Square(3, 3, '');
+var square1 = new Square(0, '');
+var square2 = new Square(1, '');
+var square3 = new Square(2, '');
+var square4 = new Square(3, '');
+var square5 = new Square(4, '');
+var square6 = new Square(5, '');
+var square7 = new Square(6, '');
+var square8 = new Square(7, '');
+var square9 = new Square(8, '');
 
 var allSquares = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
 var winningSquareCombos = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
@@ -54,36 +53,34 @@ Square.prototype.markedBy = function() {
   return this.player.marker;
 }
 
-Square.prototype.coords = function() {
-  return this.x + this.y;
-}
-
 Board.prototype.mark = function(num) {
   this.squares[num].player = game.currentPlayer;
+  game.currentPlayer.squares.push(this.squares[num].id);
+  board.threeInRow();
+  if (board.series) {
+    return;
+  }
   if (game.currentPlayer === player1) {
     game.currentPlayer = player2;
   } else {
     game.currentPlayer = player1;
   }
 }
+var win
 
 Board.prototype.threeInRow = function() {
-  // game.currentPlayer.squares
-  // winningSquareCombos
-  var win = true;
-
-  winningSquareCombos.forEach(function(winningArray) {
-    winningArray.forEach(function(square) {
-      if (game.currentPlayer.squares.indexOf(square) === -1) {
+  for (var i = 0; i < winningSquareCombos.length; i++) {
+    win = true;
+    for (var j = 0; j < 3; j++) {
+      if (game.currentPlayer.squares.indexOf(winningSquareCombos[i][j]) === -1) {
         win = false;
       }
-    });
-  });
-
-  if (win === true) {
-    console.log("win");
+    }
+    if (win === true) {
+      board.series = true;
+      game.gameOver = true;
+    }
   }
-
 }
 
 Board.prototype.findSquare = function() {
@@ -94,15 +91,15 @@ Game.prototype.playAgain = function() {
   player1 = new Player("cat", "Player 1", []);
   player2 = new Player("dog", "Player 2", []);
   allPlayers = [player1, player2];
-  square1 = new Square(1, 1, '');
-  square2 = new Square(2, 1, '');
-  square3 = new Square(3, 1, '');
-  square4 = new Square(1, 2, '');
-  square5 = new Square(2, 2, '');
-  square6 = new Square(3, 2, '');
-  square7 = new Square(1, 3, '');
-  square8 = new Square(2, 3, '');
-  square9 = new Square(3, 3, '');
+  square1 = new Square(0, '');
+  square2 = new Square(1, '');
+  square3 = new Square(2, '');
+  square4 = new Square(3, '');
+  square5 = new Square(4, '');
+  square6 = new Square(5, '');
+  square7 = new Square(6, '');
+  square8 = new Square(7, '');
+  square9 = new Square(8, '');
   allSquares = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
   board = new Board(allSquares, false);
   game = new Game(allPlayers, player1, board, false);
@@ -115,16 +112,17 @@ Game.prototype.playAgain = function() {
 
 $(function() {
   $(".square").click(function() {
-    var current = $(this).attr('id');
-    if (board.squares[current].player === ""){
-      $(this).addClass(game.currentPlayer.marker);
-      board.mark(current);
-      if (board.series === true) {
-        $("#message").html(game.currentPlayer.name + " wins!");
+    if (!game.gameOver) {
+      var current = $(this).attr('id');
+      if (board.squares[current].player === ""){
+        $(this).addClass(game.currentPlayer.marker);
+        board.mark(current);
+        if (board.series === true) {
+          $("#message").html(game.currentPlayer.name + " wins!");
+        }
+      } else {
+        $("#message").html(game.currentPlayer.name + ", that square is already taken! Pick again!");
       }
-    } else {
-      $("#message").html(game.currentPlayer.name + ", that square is already taken! Pick again!");
     }
-    board.threeInRow();
   });
 });
