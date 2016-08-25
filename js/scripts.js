@@ -1,5 +1,6 @@
-// Business Logic
+// ==== Business Logic ====
 
+// Object Constructors
 function Player(marker, name, squares) {
   this.marker = marker;
   this.name = name;
@@ -23,6 +24,7 @@ function Game(players, currentPlayer, board, gameOver) {
   this.gameOver = gameOver;
 }
 
+// Instance variables
 var player1 = new Player("cat", "Player 1", []);
 var player2 = new Player("dog", "Player 2", []);
 
@@ -45,6 +47,7 @@ var board = new Board(allSquares, false);
 
 var game = new Game(allPlayers, player1, board, false);
 
+// Prototype methods for objects
 Player.prototype.mark = function() {
   return this.marker;
 }
@@ -112,7 +115,9 @@ Game.prototype.playAgain = function() {
   game = new Game(allPlayers, player1, board, false);
 }
 
-// User Interface Logic
+
+
+// ==== User Interface Logic ====
 
 $(function() {
   $(".square").click(function() {
@@ -144,4 +149,30 @@ $(function() {
     $("#message").html("Player 1 goes first! Place your marker.");
     $(this).hide();
   });
+
+  // Sound effects
+
+  function Sound(src) {
+      this.sound = document.createElement("audio");
+      this.sound.src = src;
+      this.sound.setAttribute("preload", "auto");
+      this.sound.setAttribute("controls", "none");
+      this.sound.style.display = "none";
+      document.body.appendChild(this.sound);
+      this.play = function(){
+          this.sound.play();
+      }
+  }
+
+  var meow = new Sound();
+  var woof = new Sound();
+
+  $("#cat").click(function() {
+    meow.play();
+  });
+
+  $("#dog").click(function() {
+    woof.play();
+  });
+
 });
