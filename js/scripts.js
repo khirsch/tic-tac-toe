@@ -112,7 +112,6 @@ Game.prototype.playAgain = function() {
   game = new Game(allPlayers, player1, board, false);
 }
 
-
 // User Interface Logic
 
 $(function() {
