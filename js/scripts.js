@@ -164,8 +164,8 @@ $(function() {
       }
   }
 
-  var meow = new Sound();
-  var woof = new Sound();
+  var meow = new Sound("sounds/meow.mp3");
+  var woof = new Sound("sounds/woof.mp3");
 
   $("#cat").click(function() {
     meow.play();
@@ -174,5 +174,6 @@ $(function() {
   $("#dog").click(function() {
     woof.play();
   });
+
 
 });
