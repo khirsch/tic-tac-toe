@@ -110,7 +110,6 @@ Game.prototype.playAgain = function() {
   allSquares = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
   board = new Board(allSquares, false);
   game = new Game(allPlayers, player1, board, false);
-  // front end logic with reset button to clear dog/cat classes from all .square
 }
 
 
@@ -125,6 +124,7 @@ $(function() {
         board.mark(current);
         if (board.series === true) {
           $("#message").html(game.currentPlayer.name + " wins!");
+          $(".btn").show();
         } else {
           $("#message").html("You're up, " + game.currentPlayer.name + ". Place your marker.");
         }
@@ -135,6 +135,14 @@ $(function() {
     board.noWinner();
     if (game.gameOver && !board.series){
       $("#message").html("It's a draw! No one wins.");
+      $(".btn").show();
     }
+  });
+
+  $(".btn").click(function() {
+    game.playAgain();
+    $('.square').removeClass("cat dog");
+    $("#message").html("Player 1 goes first! Place your marker.");
+    $(this).hide();
   });
 });

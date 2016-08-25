@@ -2,9 +2,12 @@ body {
   text-align: center;
 }
 
+.btn {
+  display: none;
+}
+
 .square {
   height: 150px;
-  border: 1px solid black;
 }
 
 .cat {
@@ -17,7 +20,59 @@ body {
   background-size: 60%;
 }
 
+.border0 {
+  border-bottom: 2px solid #000000;
+}
+
+.border1 {
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.border2 {
+  border-bottom: 2px solid #000000;
+}
+
+.border3 {
+  border-bottom: 2px solid #000000;
+}
+
+.border4 {
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
+}
+
+.border5 {
+  border-bottom: 2px solid #000000;
+}
+
+.border7 {
+  border-left: 2px solid #000000;
+  border-right: 2px solid #000000;
+}
+
+
 #message {
   margin-top: 20px;
   font-size: 20px;
+}
+
+#player1 {
+  margin-top: 155px;
+}
+
+#player2 {
+  margin-top: 155px;
+}
+
+#cat {
+  width: 50px;
+  height: auto;
+}
+
+#dog {
+  width: 50px;
+  height: auto;
 }
