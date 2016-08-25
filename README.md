@@ -18,6 +18,8 @@ Tic Tac Toe is a game in which players alternate marking squares on a board. The
 
 * Game ends when a player marks three squares in series.
 
+* Game ends when all squares are filled but neither player has successfully filled three within a series.
+
 ## Setup/Installation Instructions ##
 
 * Copy the repository from [GitHub](https://github.com/khirsch/tic-tac-toe/)
