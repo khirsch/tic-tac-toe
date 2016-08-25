@@ -2,6 +2,7 @@ body {
   text-align: center;
   background-color: #D8D9DD;
   background-image: url("../img/paw-prints.png");
+  color: #000000;
 }
 
 h1 {
@@ -21,6 +22,8 @@ h1 {
 
 .btn {
   display: none;
+  background-color: #FFAB00;
+  border: 1px solid #000000;
 }
 
 .square {
