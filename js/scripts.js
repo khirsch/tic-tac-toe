@@ -66,11 +66,10 @@ Board.prototype.mark = function(num) {
     game.currentPlayer = player1;
   }
 }
-var win
 
 Board.prototype.threeInRow = function() {
   for (var i = 0; i < winningSquareCombos.length; i++) {
-    win = true;
+    var win = true;
     for (var j = 0; j < 3; j++) {
       if (game.currentPlayer.squares.indexOf(winningSquareCombos[i][j]) === -1) {
         win = false;
@@ -83,8 +82,16 @@ Board.prototype.threeInRow = function() {
   }
 }
 
-Board.prototype.findSquare = function() {
-
+Board.prototype.noWinner = function() {
+  var noWinner = true;
+  for (var i = 0; i < this.squares.length; i++) {
+    if (this.squares[i].player === "") {
+      noWinner = false;
+    }
+  }
+  if (noWinner === true) {
+    game.gameOver = true;
+  }
 }
 
 Game.prototype.playAgain = function() {
@@ -107,7 +114,6 @@ Game.prototype.playAgain = function() {
 }
 
 
-
 // User Interface Logic
 
 $(function() {
@@ -119,10 +125,16 @@ $(function() {
         board.mark(current);
         if (board.series === true) {
           $("#message").html(game.currentPlayer.name + " wins!");
+        } else {
+          $("#message").html("You're up, " + game.currentPlayer.name + ". Place your marker.");
         }
       } else {
-        $("#message").html(game.currentPlayer.name + ", that square is already taken! Pick again!");
+        $("#message").html("That square is already taken, " + game.currentPlayer.name +". Pick again!");
       }
+    }
+    board.noWinner();
+    if (game.gameOver && !board.series){
+      $("#message").html("It's a draw! No one wins.");
     }
   });
 });
