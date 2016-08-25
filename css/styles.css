@@ -1,0 +1,14 @@
+.square {
+  height: 150px;
+  border: 1px solid black;
+}
+
+.cat {
+  background: url("../img/cat.svg") center center no-repeat;
+  background-size: 60%;
+}
+
+.dog {
+  background: url("../img/dog.svg") center center no-repeat;
+  background-size: 60%;
+}

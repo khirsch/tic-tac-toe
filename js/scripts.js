@@ -69,3 +69,14 @@ var game = new Game(allPlayers, player1, board, false);
 
 
 // User Interface Logic
+
+$(function() {
+  $(".square").click(function() {
+    $(this).addClass(game.currentPlayer.marker);
+    if (game.currentPlayer === player1) {
+      game.currentPlayer = player2;
+    } else {
+      game.currentPlayer = player1;
+    }
+  });
+});
