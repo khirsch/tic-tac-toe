@@ -40,6 +40,7 @@ var square8 = new Square(2, 3, '');
 var square9 = new Square(3, 3, '');
 
 var allSquares = [square1, square2, square3, square4, square5, square6, square7, square8, square9];
+var winningSquareCombos = [[0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]];
 
 var board = new Board(allSquares, false);
 
@@ -67,10 +68,7 @@ Board.prototype.mark = function(num) {
 }
 
 Board.prototype.threeInRow = function() {
-  var p = game.currentPlayer;
-  if ((p === square1.player && p === square2.player && p=== square3.player) || (game.currentPlayer === square4.player && game.currentPlayer === square5.player && game.currentPlayer === square6.player) || (game.currentPlayer === square7.player && game.currentPlayer === square8.player && game.currentPlayer === square9.player)) {
-    board.series = true;
-  }
+
 }
 
 Board.prototype.findSquare = function() {
@@ -103,10 +101,15 @@ Game.prototype.playAgain = function() {
 $(function() {
   $(".square").click(function() {
     var current = $(this).attr('id');
-    $(this).addClass(game.currentPlayer.marker);
-    board.mark(current);
-    if (board.series === true) {
-      $("#message").html(game.currentPlayer.name + " wins!");
+    if (board.squares[current].player === ""){
+      $(this).addClass(game.currentPlayer.marker);
+      board.mark(current);
+      if (board.series === true) {
+        $("#message").html(game.currentPlayer.name + " wins!");
+      }
+    } else {
+      $("#message").html(game.currentPlayer.name + ", that square is already taken! Pick again!");
     }
+
   });
 });
